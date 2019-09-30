@@ -1,10 +1,14 @@
-import 'package:decisive/colors.dart';
-import 'package:decisive/dimensions.dart';
+import 'package:decisive/resources/colors.dart';
+import 'package:decisive/resources/dimensions.dart';
+import 'package:decisive/resources/strings.dart';
 import 'package:decisive/ui/common/widget_decisive_title.dart';
 import 'package:decisive/ui/common/widget_email_and_password.dart';
+import 'package:decisive/ui/common/widget_flat_button.dart';
 import 'package:decisive/ui/common/widget_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../../router.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -30,33 +34,68 @@ class _LoginScreenState extends State<LoginScreen> {
           elevation: 0,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Stack(
-          children: <Widget>[
-            Image.asset(
-              'assets/login_background.png',
-              width: double.infinity,
-              fit: BoxFit.fitWidth,
-              alignment: Alignment.topCenter,
-            ),
-            Center(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: MyDimensions.loginTitleTopMargin),
-                  DecisiveTitle(),
-                  SizedBox(height: MyDimensions.loginTitleBottomMargin),
-                  EmailAndPasswordWidget(),
-                  SizedBox(height: 16),
-                  TextButton(
-                    title: 'Forgot your password?',
-                    onPress: () => {},
-                  ),
-                ],
+      body: Builder(
+        builder: (context) => SingleChildScrollView(
+          child: Stack(
+            children: <Widget>[
+              Image.asset(
+                'assets/login_background.png',
+                width: double.infinity,
+                fit: BoxFit.fitWidth,
+                alignment: Alignment.topCenter,
               ),
-            ),
-          ],
+              Center(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: MyDimensions.loginTitleTopMargin),
+                    DecisiveTitle(),
+                    SizedBox(height: MyDimensions.loginTitleBottomMargin),
+                    EmailAndPasswordWidget(),
+                    SizedBox(height: 16),
+                    _forgotPassword(),
+                    SizedBox(height: 20),
+                    _signInButton(context),
+                    SizedBox(height: 20),
+                    _createAccount(context),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  MyTextButton _createAccount(BuildContext context) {
+    return MyTextButton(
+      title: MyStrings.buttonNoAccount,
+      onPress: () {
+        Scaffold.of(context).showSnackBar(
+          new SnackBar(
+            content: new Text('No account!'),
+          ),
+        );
+      },
+    );
+  }
+
+  MyFlatButton _signInButton(BuildContext context) {
+    return MyFlatButton(
+      onPress: () {
+        Navigator.pushReplacementNamed(context, Router.mainScreen);
+      },
+      width: MyDimensions.loginTitleWidth,
+      text: MyStrings.buttonSignIn,
+    );
+  }
+
+  MyTextButton _forgotPassword() {
+    return MyTextButton(
+      title: MyStrings.buttonForgotPassword,
+      onPress: () {
+        print('Button pressed');
+      },
     );
   }
 

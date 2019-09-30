@@ -1,5 +1,6 @@
-import 'package:decisive/colors.dart';
-import 'package:decisive/dimensions.dart';
+
+import 'package:decisive/resources/colors.dart';
+import 'package:decisive/resources/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class EmailAndPasswordWidget extends StatelessWidget {

@@ -1,10 +1,8 @@
+import 'package:decisive/resources/colors.dart';
+import 'package:decisive/resources/dimensions.dart';
 import 'package:flutter/material.dart';
-import '../../colors.dart';
-import '../../dimensions.dart';
-
 
 class DecisiveTitle extends StatelessWidget {
-
   final double width;
 
   DecisiveTitle({this.width = MyDimensions.loginTitleWidth});
@@ -13,11 +11,12 @@ class DecisiveTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
-          child: Container(
+      child: Container(
         width: width,
         color: MyColors.transparentWhite,
         child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+          padding:
+              const EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
           child: FittedBox(
             fit: BoxFit.fitWidth,
             child: Text(
