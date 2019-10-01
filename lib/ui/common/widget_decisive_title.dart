@@ -1,5 +1,6 @@
 import 'package:decisive/resources/colors.dart';
 import 'package:decisive/resources/dimensions.dart';
+import 'package:decisive/resources/strings.dart';
 import 'package:flutter/material.dart';
 
 class DecisiveTitle extends StatelessWidget {
@@ -20,11 +21,12 @@ class DecisiveTitle extends StatelessWidget {
           child: FittedBox(
             fit: BoxFit.fitWidth,
             child: Text(
-              'Decisive.',
+              MyStrings.appTitle,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w300,
               ),
+              key: Key('logo'),
             ),
           ),
         ),

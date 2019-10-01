@@ -1,12 +1,16 @@
 import 'package:decisive/ui/login/screen_login.dart';
 import 'package:decisive/ui/main/screen_main.dart';
+import 'package:decisive/ui/projectDetails/screen_project_details.dart';
 import 'package:decisive/ui/root/screen_root.dart';
+import 'package:decisive/ui/settings/screen_settings.dart';
 import 'package:flutter/material.dart';
 
 class Router {
   static const rootScreen = '/';
   static const mainScreen = '/main';
   static const loginScreen = '/login';
+  static const projectDetailsScreen = '/main/details';
+  static const settingsScreen = '/main/settings';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -18,6 +22,10 @@ class Router {
         return MaterialPageRoute(builder: (_) => MainScreen());
       case loginScreen:
         return MaterialPageRoute(builder: (_) => LoginScreen());
+      case projectDetailsScreen:
+        return MaterialPageRoute(builder: (_) => ProjectDetailsScreen());
+      case settingsScreen:
+        return MaterialPageRoute(builder: (_) => SettingsScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

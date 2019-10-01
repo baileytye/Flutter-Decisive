@@ -21,6 +21,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  outline_material_icons: ^0.1.0
+    
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -30,6 +33,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  test: any
 
 
 # For information on the generic Dart part of this file, see the
