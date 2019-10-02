@@ -16,7 +16,7 @@ class MainScreen extends StatefulWidget {
 
 enum MainMenu { signOut, settings }
 
-class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
+class _MainScreenState extends State<MainScreen> {
   var _currentIndex = 0;
   var _toolbarColor, _toolbarTitle;
 
@@ -56,17 +56,40 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return Container(
       color: Colors.white,
       child: SafeArea(
+        right: false,
+        left: false,
+        top: false,
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: _toolbarColor,
-            centerTitle: true,
-            title: Text(
-              _toolbarTitle,
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            actions: <Widget>[createOptionsMenu()],
+          backgroundColor: Colors.white,
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                pinned: true,
+                brightness: Brightness.light,
+                expandedHeight: 120,
+                actions: <Widget>[createOptionsMenu()],
+                actionsIconTheme: IconThemeData(
+                  color: Colors.black54,
+                ),
+                backgroundColor: Colors.white,
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  title: Text(
+                    _toolbarTitle,
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: _toolbarColor[600],
+                    ),
+                  ),
+                  background: Container(color: Colors.white),
+                ),
+              ),
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                sliver: widgetTabs[_currentIndex],
+              ),
+            ],
           ),
-          body: widgetTabs[_currentIndex],
           bottomNavigationBar: AnimatedBottomBar(
               onItemTap: (index) {
                 onTabTapped(index);
@@ -85,9 +108,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         Navigator.pushReplacementNamed(context, Router.loginScreen);
         break;
       case MainMenu.settings:
-        await Navigator.pushNamed(context, Router.settingsScreen).then((_) {
-          setStatusBarColor();
-        });
+        Navigator.pushNamed(context, Router.settingsScreen);
         break;
     }
   }
@@ -116,14 +137,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     );
   }
 
-  setStatusBarColor() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: barItems[_currentIndex].color.shade700));
-  }
-
   void onTabTapped(int index) {
     setState(() {
-      setStatusBarColor();
       _currentIndex = index;
       _toolbarColor = barItems[index].color;
       _toolbarTitle = barItems[index].text;

@@ -13,7 +13,7 @@ class MyStrings {
   static const String menuSignOut = "Sign out";
 
   //Tabs
-  static const String tabHome = "Home";
+  static const String tabHome = "Projects";
   static const String tabTemplates = "Templates";
   static const String tabSharing = "Sharing";
 }

@@ -1,12 +1,21 @@
 import 'package:decisive/router.dart';
+import 'package:decisive/ui/common/card_project.dart';
 import 'package:decisive/ui/common/toolbar.dart';
 import 'package:flutter/material.dart';
 
 class TemplatesScreen extends StatelessWidget {
-  @override
+   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child: Text('templates')),
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, position) {
+          return _buildProjectCard();
+        },
+      ),
     );
   }
+}
+
+_buildProjectCard() {
+  return ProjectCard(color: Colors.green,);
 }

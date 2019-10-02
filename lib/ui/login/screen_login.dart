@@ -6,7 +6,6 @@ import 'package:decisive/ui/common/widget_email_and_password.dart';
 import 'package:decisive/ui/common/widget_flat_button.dart';
 import 'package:decisive/ui/common/widget_text_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../router.dart';
 
@@ -23,9 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: MyColors.colorPrimaryDark));
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(0),

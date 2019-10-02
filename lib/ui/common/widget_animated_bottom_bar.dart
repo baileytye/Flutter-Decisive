@@ -32,7 +32,13 @@ class _AnimatedBottomBarState extends State<AnimatedBottomBar>
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(border: Border(top: BorderSide(color: MyColors.cardStroke.withOpacity(0.1)))),
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: MyColors.cardStroke.withOpacity(0.1),
+          ),
+        ),
+      ),
       child: Material(
         elevation: 0,
         color: Colors.white,
