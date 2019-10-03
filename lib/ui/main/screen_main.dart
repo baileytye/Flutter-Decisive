@@ -1,3 +1,4 @@
+import 'package:decisive/repositories/user_repository.dart';
 import 'package:decisive/resources/strings.dart';
 import 'package:decisive/ui/common/widget_animated_bottom_bar.dart';
 import 'package:decisive/ui/projects/screen_projects.dart';
@@ -17,6 +18,7 @@ class MainScreen extends StatefulWidget {
 enum MainMenu { signOut, settings }
 
 class _MainScreenState extends State<MainScreen> {
+
   var _currentIndex = 0;
   var _toolbarColor, _toolbarTitle;
 
@@ -60,7 +62,6 @@ class _MainScreenState extends State<MainScreen> {
         left: false,
         top: false,
         child: Scaffold(
-          backgroundColor: Colors.white,
           body: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
@@ -81,7 +82,9 @@ class _MainScreenState extends State<MainScreen> {
                       color: _toolbarColor[600],
                     ),
                   ),
-                  background: Container(color: Colors.white),
+                  background: Container(
+                    color: Colors.white,
+                  ),
                 ),
               ),
               SliverPadding(
@@ -105,7 +108,7 @@ class _MainScreenState extends State<MainScreen> {
   void onMenuItemSelected(MainMenu result) async {
     switch (result) {
       case MainMenu.signOut:
-        Navigator.pushReplacementNamed(context, Router.loginScreen);
+        UserRepository.instance().signOut();
         break;
       case MainMenu.settings:
         Navigator.pushNamed(context, Router.settingsScreen);

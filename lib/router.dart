@@ -1,3 +1,4 @@
+import 'package:decisive/ui/intro/screen_intro.dart';
 import 'package:decisive/ui/login/screen_login.dart';
 import 'package:decisive/ui/main/screen_main.dart';
 import 'package:decisive/ui/projectDetails/screen_project_details.dart';
@@ -11,6 +12,7 @@ class Router {
   static const loginScreen = '/login';
   static const projectDetailsScreen = '/main/details';
   static const settingsScreen = '/main/settings';
+  static const introScreen = '/intro';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -18,6 +20,8 @@ class Router {
     switch (settings.name) {
       case rootScreen:
         return MaterialPageRoute(builder: (_) => RootScreen());
+      case introScreen:
+        return MaterialPageRoute(builder: (_) => IntroScreen());
       case mainScreen:
         return MaterialPageRoute(builder: (_) => MainScreen());
       case loginScreen:

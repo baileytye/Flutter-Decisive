@@ -11,6 +11,7 @@ class TemplatesScreen extends StatelessWidget {
         (context, position) {
           return _buildProjectCard();
         },
+        childCount: 5,
       ),
     );
   }

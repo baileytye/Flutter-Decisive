@@ -1,27 +1,31 @@
+import 'package:decisive/repositories/user_repository.dart';
 import 'package:decisive/resources/colors.dart';
 import 'package:decisive/resources/dimensions.dart';
 import 'package:decisive/resources/strings.dart';
 import 'package:decisive/ui/common/widget_decisive_title.dart';
-import 'package:decisive/ui/common/widget_email_and_password.dart';
 import 'package:decisive/ui/common/widget_flat_button.dart';
 import 'package:decisive/ui/common/widget_text_button.dart';
 import 'package:flutter/material.dart';
-
-import '../../router.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
+enum SignInState { signIn, signUp }
+
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
   var _isLoading = false;
   var _email;
   var _password;
-  var _errorMessage;
+  SignInState signInState = SignInState.signIn;
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserRepository>(context);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(0),
@@ -46,13 +50,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: MyDimensions.loginTitleTopMargin),
                     DecisiveTitle(),
                     SizedBox(height: MyDimensions.loginTitleBottomMargin),
-                    EmailAndPasswordWidget(),
+                    _emailAndPassword(),
                     SizedBox(height: 16),
                     _forgotPassword(),
                     SizedBox(height: 20),
-                    _signInButton(context),
+                    _signInButton(context, user),
                     SizedBox(height: 20),
-                    _createAccount(context),
+                    _noAccountButton(context),
                   ],
                 ),
               ),
@@ -63,34 +67,54 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  MyTextButton _createAccount(BuildContext context) {
+  MyTextButton _noAccountButton(BuildContext context) {
     return MyTextButton(
-      title: MyStrings.buttonNoAccount,
+      title: (signInState == SignInState.signIn)
+          ? MyStrings.buttonNoAccount
+          : MyStrings.buttonHaveAccount,
       onPress: () {
-        Scaffold.of(context).showSnackBar(
-          new SnackBar(
-            content: new Text('No account!'),
-          ),
-        );
+        setState(() {
+          _formKey.currentState.reset();
+          if (signInState == SignInState.signIn) {
+            signInState = SignInState.signUp;
+          } else {
+            signInState = SignInState.signIn;
+          }
+        });
       },
     );
   }
 
-  MyFlatButton _signInButton(BuildContext context) {
+  MyFlatButton _signInButton(BuildContext context, UserRepository user) {
     return MyFlatButton(
       onPress: () {
-        Navigator.pushReplacementNamed(context, Router.mainScreen);
+        final form = _formKey.currentState;
+        form.save();
+
+        if (form.validate()) {
+          print("$_email , $_password");
+
+          if (signInState == SignInState.signIn) {
+            user.signIn(_email, _password);
+          } else if (signInState == SignInState.signUp) {
+            user.signUp(_email, _password);
+          }
+        }
       },
       width: MyDimensions.loginTitleWidth,
-      text: MyStrings.buttonSignIn,
+      text: (signInState == SignInState.signIn)
+          ? MyStrings.buttonSignIn
+          : MyStrings.buttonSignUp,
     );
   }
 
   MyTextButton _forgotPassword() {
     return MyTextButton(
-      title: MyStrings.buttonForgotPassword,
+      title: (signInState == SignInState.signIn)
+          ? MyStrings.buttonForgotPassword
+          : '',
       onPress: () {
-        print('Button pressed');
+        print('Forgot password');
       },
     );
   }
@@ -103,5 +127,71 @@ class _LoginScreenState extends State<LoginScreen> {
       height: 0,
       width: 0,
     );
+  }
+
+  Widget _emailAndPassword() {
+    return Container(
+      width: MyDimensions.loginTitleWidth,
+      decoration: BoxDecoration(
+        border: Border.all(color: MyColors.cardStroke),
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 16, right: 16, top: 6, bottom: 6),
+                child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    onSaved: (value) => _email = value,
+                    validator: (value) => _validateEmail(value),
+                    decoration: InputDecoration(
+                      hintText: MyStrings.hintEmail,
+                      border: InputBorder.none,
+                    )),
+              ),
+              SizedBox(
+                height: 1,
+                child: Container(
+                  color: MyColors.cardStroke,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 16, right: 16, top: 6, bottom: 6),
+                child: TextFormField(
+                  obscureText: true,
+                  validator: (value) => _validatePassword(value),
+                  onSaved: (value) => _password = value,
+                  decoration: InputDecoration(
+                    hintText: MyStrings.hintPassword,
+                    border: InputBorder.none,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  _validateEmail(String value) {
+    if (value.isEmpty) {
+      return "Please enter a valid email";
+    }
+    return null;
+  }
+
+  _validatePassword(String value) {
+    if (value.isEmpty) {
+      return "Please enter your password";
+    }
+    return null;
   }
 }

@@ -9,6 +9,7 @@ class ProjectsScreen extends StatelessWidget {
         (context, position) {
           return _buildProjectCard();
         },
+        childCount: 1,
       ),
     );
   }
