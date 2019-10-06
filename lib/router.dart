@@ -1,8 +1,8 @@
 import 'package:decisive/ui/intro/screen_intro.dart';
 import 'package:decisive/ui/login/screen_login.dart';
+import 'package:decisive/ui/login/screen_root.dart';
 import 'package:decisive/ui/main/screen_main.dart';
 import 'package:decisive/ui/projectDetails/screen_project_details.dart';
-import 'package:decisive/ui/root/screen_root.dart';
 import 'package:decisive/ui/settings/screen_settings.dart';
 import 'package:flutter/material.dart';
 

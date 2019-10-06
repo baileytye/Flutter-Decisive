@@ -1,4 +1,4 @@
-import 'package:decisive/repositories/user_repository.dart';
+import 'package:decisive/data/repositories/user_repository.dart';
 import 'package:decisive/ui/intro/screen_intro.dart';
 import 'package:decisive/ui/login/screen_login.dart';
 import 'package:decisive/ui/main/screen_main.dart';

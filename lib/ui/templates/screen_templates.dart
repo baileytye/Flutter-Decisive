@@ -1,6 +1,4 @@
-import 'package:decisive/router.dart';
 import 'package:decisive/ui/common/card_project.dart';
-import 'package:decisive/ui/common/toolbar.dart';
 import 'package:flutter/material.dart';
 
 class TemplatesScreen extends StatelessWidget {

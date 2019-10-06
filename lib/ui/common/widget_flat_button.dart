@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class MyFlatButton extends StatelessWidget {
-  final width, text;
+  final width, text, height;
   final Function onPress;
 
   MyFlatButton(
-      {this.width = double.infinity,
+      {this.width = double.infinity, this.height = 50.0,
       this.text = 'Button',
       @required this.onPress});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 48,
+      height: height,
       width: width,
       child: OutlineButton(
         highlightedBorderColor: Colors.black,

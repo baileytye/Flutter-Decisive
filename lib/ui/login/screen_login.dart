@@ -1,4 +1,4 @@
-import 'package:decisive/repositories/user_repository.dart';
+import 'package:decisive/data/repositories/user_repository.dart';
 import 'package:decisive/resources/colors.dart';
 import 'package:decisive/resources/dimensions.dart';
 import 'package:decisive/resources/strings.dart';
@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 
 enum SignInState { signIn, signUp }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin{
   final _formKey = GlobalKey<FormState>();
   var _isLoading = false;
   var _email;
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  MyFlatButton _signInButton(BuildContext context, UserRepository user) {
+  Widget _signInButton(BuildContext context, UserRepository user) {
     return MyFlatButton(
       onPress: () {
         final form = _formKey.currentState;
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  MyTextButton _forgotPassword() {
+  Widget _forgotPassword() {
     return MyTextButton(
       title: (signInState == SignInState.signIn)
           ? MyStrings.buttonForgotPassword

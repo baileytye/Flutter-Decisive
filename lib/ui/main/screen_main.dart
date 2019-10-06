@@ -1,4 +1,4 @@
-import 'package:decisive/repositories/user_repository.dart';
+import 'package:decisive/data/repositories/user_repository.dart';
 import 'package:decisive/resources/strings.dart';
 import 'package:decisive/ui/common/widget_animated_bottom_bar.dart';
 import 'package:decisive/ui/projects/screen_projects.dart';
