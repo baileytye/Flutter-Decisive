@@ -4,13 +4,14 @@ import 'package:flutter/services.dart';
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-          SystemChrome.setSystemUIOverlayStyle(
-          SystemUiOverlayStyle(statusBarColor: Colors.blue));
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        iconTheme: IconThemeData(color: Colors.black54),
+        backgroundColor: Colors.white,
+        title: Text(
+          'Settings',
+          style: TextStyle(color: Colors.black54),
+        ),
         centerTitle: true,
       ),
       body: Center(

@@ -5,6 +5,17 @@ class Criteria{
   Importance importance;
   double expected, weight;
   bool moreIsBetter;
+
+  Criteria({
+    this.name = "Criteria name",
+    this.notes = "",
+    this.unit = "",
+    this.type = Type.number,
+    this.importance = Importance.normal,
+    this.expected = 0.0, 
+    this.weight = 1.0,
+    this.moreIsBetter = true,
+  });
 }
 
 enum Type {

@@ -27,7 +27,7 @@ class Router {
       case loginScreen:
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case projectDetailsScreen:
-        return MaterialPageRoute(builder: (_) => ProjectDetailsScreen());
+        return MaterialPageRoute(builder: (_) => ProjectDetailsScreen(projectId: args));
       case settingsScreen:
         return MaterialPageRoute(builder: (_) => SettingsScreen());
       default:

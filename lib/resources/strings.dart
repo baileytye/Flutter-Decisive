@@ -13,6 +13,8 @@ class MyStrings {
   //Menu
   static const String menuSettings = "Settings";
   static const String menuSignOut = "Sign out";
+  static const String menuEditProject = "Edit project";
+  static const String menuDeleteProject = "Delete project";
 
   //Tabs
   static const String tabHome = "Projects";
@@ -21,5 +23,5 @@ class MyStrings {
 
   //Hints
   static const String hintEmail = "Email Address";
-  static const String hintPassword = "Pasword";
+  static const String hintPassword = "Password";
 }

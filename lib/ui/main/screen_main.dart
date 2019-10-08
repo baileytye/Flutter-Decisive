@@ -1,14 +1,16 @@
 import 'package:decisive/data/repositories/user_repository.dart';
 import 'package:decisive/resources/strings.dart';
+import 'package:decisive/router.dart';
+import 'package:decisive/ui/common/toolbar.dart';
 import 'package:decisive/ui/common/widget_animated_bottom_bar.dart';
-import 'package:decisive/ui/projects/screen_projects.dart';
-import 'package:decisive/ui/sharing/screen_sharing.dart';
-import 'package:decisive/ui/templates/screen_templates.dart';
+import 'package:decisive/ui/main/model_projects.dart';
+import 'package:decisive/ui/main/tabs/screen_projects.dart';
+import 'package:decisive/ui/main/tabs/screen_sharing.dart';
+import 'package:decisive/ui/main/tabs/screen_templates.dart';
+import 'package:decisive/ui/projectDetails/model_project_details.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
-
-import '../../router.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -18,7 +20,6 @@ class MainScreen extends StatefulWidget {
 enum MainMenu { signOut, settings }
 
 class _MainScreenState extends State<MainScreen> {
-
   var _currentIndex = 0;
   var _toolbarColor, _toolbarTitle;
 
@@ -64,32 +65,17 @@ class _MainScreenState extends State<MainScreen> {
         child: Scaffold(
           body: CustomScrollView(
             slivers: <Widget>[
-              SliverAppBar(
-                pinned: true,
-                brightness: Brightness.light,
-                expandedHeight: 120,
-                actions: <Widget>[createOptionsMenu()],
-                actionsIconTheme: IconThemeData(
-                  color: Colors.black54,
-                ),
-                backgroundColor: Colors.white,
-                flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  title: Text(
-                    _toolbarTitle,
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: _toolbarColor[600],
-                    ),
-                  ),
-                  background: Container(
-                    color: Colors.white,
-                  ),
-                ),
+              MyToolbar(
+                optionsMenu: createOptionsMenu(),
+                textColor: _toolbarColor[600],
+                title: _toolbarTitle,
               ),
               SliverPadding(
                 padding: EdgeInsets.symmetric(horizontal: 8),
-                sliver: widgetTabs[_currentIndex],
+                sliver: ChangeNotifierProvider<ProjectsModel>(
+                  builder: (context) => ProjectsModel.instance(),
+                  child: widgetTabs[_currentIndex],
+                ),
               ),
             ],
           ),
